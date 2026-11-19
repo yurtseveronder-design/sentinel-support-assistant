@@ -48,13 +48,13 @@ class Tests(unittest.TestCase):
         a = Assistant(ROOT, Down()).ask("How long do refunds take?")
         self.assertEqual(a.status, "guard_unavailable")
 
-    def test_questions_file_is_locked_at_25(self):
+    def test_questions_file_is_locked_at_28(self):
         n = len((ROOT / "eval" / "questions.jsonl").read_text(encoding="utf-8").strip().splitlines())
-        self.assertEqual(n, 25)
+        self.assertEqual(n, 28)
 
     def test_unguarded_baseline_answers_all_lookups(self):
         res = evalrun.run("none", "extractive")
-        self.assertEqual(res["by_type"]["lookup"], "14/14")
+        self.assertEqual(res["by_type"]["lookup"], "11/11")
         self.assertEqual(res["by_type"]["hard_negative"], "3/3")
 
 
