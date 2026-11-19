@@ -1,0 +1,1 @@
+"""Northwind support assistant (demo)."""

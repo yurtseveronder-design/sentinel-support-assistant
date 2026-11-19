@@ -1,0 +1,20 @@
+[project]
+name = "sentinel-support-assistant"
+version = "0.1.0"
+description = "Demo: a document Q&A assistant for support agents, guarded by Sentinel at input, retrieved documents and output."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+sentinel = ["ai-sentinel @ git+https://github.com/yurtseveronder-design/ai-sentinel.git"]
+api = ["fastapi", "uvicorn"]
+
+[project.scripts]
+ssa = "support_assistant.cli:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
