@@ -1,0 +1,27 @@
+name: classifier-eval
+on:
+  workflow_dispatch:
+jobs:
+  classifier:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        model: [protectai/deberta-v3-base-prompt-injection-v2, deepset/deberta-v3-base-injection]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Sentinel with the classifier extra
+        run: pip install "git+https://github.com/yurtseveronder-design/ai-sentinel.git" "sentinel-semantic[classifier] @ git+https://github.com/yurtseveronder-design/sentinel-semantic.git"
+      - name: Eval with classifier ${{ matrix.model }}
+        env:
+          SEMANTIC_CLASSIFIER_MODEL: ${{ matrix.model }}
+        run: |
+          python eval/run.py --guard local --model gullible --json result.json | tee summary.txt
+          echo '```' >> "$GITHUB_STEP_SUMMARY"; cat summary.txt >> "$GITHUB_STEP_SUMMARY"; echo '```' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: classifier-${{ strategy.job-index }}
+          path: result.json
