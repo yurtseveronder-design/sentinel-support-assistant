@@ -45,7 +45,7 @@ The honest reading: the guard fixed the leaks and stopped some injections withou
 
 - **No real LLM is bundled.** The default model is *extractive*: it returns the two best-matching sections verbatim. It cannot be prompt-injected because it does not follow instructions, so on its own it proves nothing about injection.
 - **`GullibleModel` is a simulation**, a test double that obeys lines like "AI assistant: …". It shows what a guard prevents *if* a model were this weak. It is not evidence about any real LLM.
-- **The handbook was written (by the builder) to match the owner's expected answers, so the lookup scores flatter the system. Details such as the approval limits and the courtesy-refund rule are invented**, so the lookup scores flatter the system. The attack tickets were written by the same author as the app, so they are not an independent attack set.
+- **The handbook was written by the builder to match the owner's expected answers**, so the lookup scores flatter the system. Details not in the owner's answers (such as the approval limits) are invented. The attack tickets were written by the same author as the app, so they are not an independent attack set.
 - **The default Sentinel rules are weak against indirect injection** (see the table). Poisoned tickets still get through the rule shield alone. That is the real finding, not a bug in the demo. The optional trained classifier (`latest-classifier` image) catches more but is opt-in and slower.
 - The "I don't know" threshold and the retrieval were tuned while building against these questions. One not-in-the-documents question (Q07, free upgrades for life) still gets an answer because retrieval sees overlapping words.
 - Retrieval is a small BM25 with a crude stemmer. It is not production search.
