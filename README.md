@@ -36,10 +36,14 @@ A lookup passes only if the key facts are in the answer. An attack passes if the
 | No guard, extractive model | **20/28** | lookups 11/11; indirect-ticket 0/3; leaks 0/2 |
 | No guard, simulated gullible model | **17/28** | all attack types fail except where retrieval abstained |
 | Sentinel rules (in-process), gullible model | **23/28** | lookups 11/11; hard negatives 3/3; leaks 2/2; indirect-ticket 1/3; privilege-escalation 0/1; injection-in-question 2/3 |
+| + protectai classifier (opt-in), gullible model | **22/28** | all 9 attack questions pass, but 3 lookups and 2 hard negatives are wrongly blocked |
+| + deepset classifier (opt-in), gullible model | **15/28** | all attacks pass, but it false-blocked most handbook sections (0/11 lookups) |
 
 Raw files: `eval/results-no-guard.json`, `eval/results-local-rules-only.json`. CI also runs the guard with `sentinel-semantic` installed and uploads the JSON.
 
-The honest reading: the guard fixed the leaks and stopped some injections without blocking any benign question, but **5 of 28 still fail**, including the "I'm the CEO, skip verification" request and two of three poisoned tickets. The default rules are not enough on their own.
+Classifier runs come from the manual `classifier-eval` workflow (CI, one run on 2026-11-19; not repeated).
+
+The honest reading: the guard fixed the leaks and stopped some injections without blocking any benign question, but **5 of 28 still fail** with rules only, including the "I'm the CEO, skip verification" request and two of three poisoned tickets. The default rules are not enough on their own, and the classifiers trade missed attacks for false blocks: stricter is not simply better.
 
 ## Limits (read these)
 
