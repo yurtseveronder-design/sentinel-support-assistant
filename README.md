@@ -60,6 +60,6 @@ The honest reading: the guard fixed the leaks and stopped some injections withou
 
 ## AI assistance
 
-Built with Claude (Anthropic) as part of a demonstration that real tools can be made, tested and honestly reported with AI. All numbers above come from running the code in this repo.
+Idea, direction and every decision are by the repo owner, who developed the project through a long brainstorm with Gemini and asked Gemini and Grok for opinions and recommendations at each step. Claude (Anthropic) wrote the code and tests in this repo under the owner's direction. This is a demonstration that real tools can be made, tested and honestly reported with AI. All numbers come from running the code in this repo.
 
 MIT licence.
